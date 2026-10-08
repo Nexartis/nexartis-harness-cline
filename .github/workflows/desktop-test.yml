@@ -36,6 +36,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: desktop-test-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   dmg-background:
     name: Test DMG background tooling
