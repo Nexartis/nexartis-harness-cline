@@ -23,6 +23,10 @@ defaults:
     run:
         working-directory: .
 
+concurrency:
+  group: sdk-test-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
     quality-checks:
         runs-on: ubuntu-latest
