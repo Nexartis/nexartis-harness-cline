@@ -15,6 +15,10 @@ permissions:
     contents: read # Needed to check out code
     pull-requests: read # Needed for changed-file detection on pull requests
 
+concurrency:
+  group: ext-vscode-test-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
     detect-changes:
         runs-on: ubuntu-latest
